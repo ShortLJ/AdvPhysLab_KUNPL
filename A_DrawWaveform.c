@@ -1,7 +1,6 @@
 
 
 void A_DrawWaveform(){
-	//TFile *file = new TFile("../Na22_run01_JunseokLee_waveform.root", "read");
 	TFile *file = new TFile("../AdvPhyLab_Co60_waveform.root", "read");
 	TTree *tree = (TTree*) file->Get("wavedata");
 	const int Entries = tree->GetEntries();
@@ -14,11 +13,11 @@ void A_DrawWaveform(){
 		return;
 	}
 
-
-
 	UInt_t          NHitCh;
+	UInt_t          Channel[8];   //[NHitCh]
 	Float_t 	waveform[8][1024];
 	tree->SetBranchAddress("NHitCh", &NHitCh);
+	tree->SetBranchAddress("Channel", Channel);
 	tree->SetBranchAddress("waveform", waveform);
 
 	tree->GetEntry(target);
